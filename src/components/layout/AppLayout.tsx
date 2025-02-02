@@ -51,7 +51,7 @@ export default function AppLayout() {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+      <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -64,7 +64,7 @@ export default function AppLayout() {
           <Typography variant="h6" noWrap component="div">
             家計簿アプリ
           </Typography>
-        </Toolbar>
+      </Toolbar>
       </AppBar>
 
       {/* サイドバー */}
