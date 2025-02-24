@@ -3,14 +3,23 @@ import React from 'react'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import { Transaction } from '../types';
+import { financeCalculations } from '../utils/financeCalculations.ts';
+// import {theme} from "../theme/theme.tsx";
+interface MonthlySummaryProps {
+  monthlyTransactions: Transaction[], 
+}
 
-function MonthlySummary() {
+function MonthlySummary({monthlyTransactions}: MonthlySummaryProps) {
+  // console.log(monthlyTransactions);
+  const {income, expense, balance} = financeCalculations(monthlyTransactions);
+  
   return (
     <Grid container spacing={{xs: 1, sm: 2}} mb={2}>
       {/* 収入 */}
       <Grid item xs={4} display={"flex"} flexDirection={"column"}>
         <Card sx={{
-          bgcolor: "blue", 
+          bgcolor: (theme) => theme.palette.incomeColor.main, 
           color:"white", borderRadius: "10px",
           flexGrow: 1,
           }}>
@@ -27,14 +36,14 @@ function MonthlySummary() {
               wordBreak: "break-word",
               fontSize: {xs:".8rem", sm: "1rem", md: "1.2rem"},
             }}
-            >￥300</Typography>
+            >￥{income}</Typography>
           </CardContent>
         </Card>
       </Grid>
       {/* 支出 */}
       <Grid item xs={4} display={"flex"} flexDirection={"column"}>
         <Card sx={{
-          bgcolor: "red", 
+          bgcolor: (theme) => theme.palette.expenseColor.main, 
           color:"white", 
           borderRadius: "10px",
           flexGrow: 1,
@@ -52,14 +61,14 @@ function MonthlySummary() {
               wordBreak: "break-word", 
               fontSize: {xs:".8rem", sm: "1rem", md: "1.2rem"},
             }}
-            >￥300</Typography>
+            >￥{expense}</Typography>
           </CardContent>
         </Card>
       </Grid>
       {/* 残高 */}
       <Grid item xs={4} display={"flex"} flexDirection={"column"}>
         <Card sx={{
-          bgcolor: "green", 
+          bgcolor: (theme) => theme.palette.balanceColor.main, 
           color:"white", 
           borderRadius: "10px",
           flexGrow: 1,
@@ -77,7 +86,7 @@ function MonthlySummary() {
               wordBreak: "break-word", 
               fontSize: {xs:".8rem", sm: "1rem", md: "1.2rem"},
             }}
-            >￥300</Typography>
+            >￥{balance}</Typography>
           </CardContent>
         </Card>
       </Grid>
