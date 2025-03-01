@@ -23,9 +23,11 @@ function App() {
   }
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fecheTransactions = async() => {
+    try {
       const querySnapshot = await getDocs(collection(db, "Transactions"));
       // console.log(querySnapshot);
       const transactionsData = querySnapshot.docs.map((doc) => {
@@ -39,10 +41,6 @@ function App() {
 
       // console.log(transactionsData);
       setTransactions(transactionsData);
-
-    }
-    fecheTransactions();
-    try {
     } catch(err) {
       if(isFireStoreError(err)) {
         console.error("fireStoreのエラーは:", err);
@@ -51,7 +49,11 @@ function App() {
       } else {
         console.log("一般的なエラーは:", err)
       }
+    } finally {
+      setIsLoading(false);
     }
+  };
+  fecheTransactions();
   }, [])
 
   // ひと月分のデータのみ取得
@@ -134,7 +136,15 @@ function App() {
                                     onUpdateTransaction={hadleUpdateTransaction}
                                     />
                                   }/>
-            <Route path="/report" element={<Report />} />
+          <Route
+           path="/report" 
+           element={
+           <Report
+            currentMonth={currentMonth}
+            setCurrentMonth={setCurrentMonth}
+            monthlyTransactions={monthlyTransactions}
+            isLoading={isLoading}
+            />} />
             <Route path="*" element={<NoMatch />} />
           </Route>
         </Routes>
