@@ -5,6 +5,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { Transaction } from '../types';
 import { financeCalculations } from '../utils/financeCalculations.ts';
+import { formatCurrency } from '../utils/formatting.ts';
 // import {theme} from "../theme/theme.tsx";
 interface MonthlySummaryProps {
   monthlyTransactions: Transaction[], 
@@ -36,7 +37,7 @@ function MonthlySummary({monthlyTransactions}: MonthlySummaryProps) {
               wordBreak: "break-word",
               fontSize: {xs:".8rem", sm: "1rem", md: "1.2rem"},
             }}
-            >￥{income}</Typography>
+            >￥{formatCurrency(income)}</Typography>
           </CardContent>
         </Card>
       </Grid>
@@ -61,7 +62,7 @@ function MonthlySummary({monthlyTransactions}: MonthlySummaryProps) {
               wordBreak: "break-word", 
               fontSize: {xs:".8rem", sm: "1rem", md: "1.2rem"},
             }}
-            >￥{expense}</Typography>
+            >￥{formatCurrency(expense)}</Typography>
           </CardContent>
         </Card>
       </Grid>
@@ -86,7 +87,7 @@ function MonthlySummary({monthlyTransactions}: MonthlySummaryProps) {
               wordBreak: "break-word", 
               fontSize: {xs:".8rem", sm: "1rem", md: "1.2rem"},
             }}
-            >￥{balance}</Typography>
+            >￥{formatCurrency(balance)}</Typography>
           </CardContent>
         </Card>
       </Grid>

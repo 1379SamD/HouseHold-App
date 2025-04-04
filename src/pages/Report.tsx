@@ -34,7 +34,7 @@ const Report = ({currentMonth, setCurrentMonth, monthlyTransactions, isLoading}:
         <Paper sx={commonPaperStayle}><BarChart monthlyTransactions={monthlyTransactions} isLoading={isLoading}/></Paper>
       </Grid>
       <Grid item xs={12}>
-        <TransactionTable />
+        <TransactionTable monthlyTransactions={monthlyTransactions}/>
       </Grid>
     </Grid>
   );
